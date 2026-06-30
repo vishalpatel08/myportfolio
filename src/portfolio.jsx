@@ -331,7 +331,7 @@ export default function Portfolio() {
                   "gRPC interface with configurable per-client quotas and 2s context timeouts on every Redis operation",
                   "Benchmarked at 18M ops/sec across 8 parallel goroutines using Go's native benchmark suite"].map((b, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
-                    <span style={{ color: C, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                    <span style={{ color: C, flexShrink: 0, marginTop: -2 }}>→</span> {b}
                   </li>
                 ))}
               </ul>
@@ -358,7 +358,7 @@ export default function Portfolio() {
                   "Improved collusion resistance and reconstruction efficiency with reduced computational overhead",
                   "Fully implemented in C++ with applications in secure distributed data storage and cryptographic systems"].map((b, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
-                    <span style={{ color: V, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                    <span style={{ color: V, flexShrink: 0, marginTop: -2 }}>→</span> {b}
                   </li>
                 ))}
               </ul>
@@ -396,7 +396,7 @@ export default function Portfolio() {
                   "Designed a modular REST API with Dependency Injection and reusable middleware for logging and authentication across 20+ endpoints"
                 ].map((b, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
-                    <span style={{ color: C, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                    <span style={{ color: C, flexShrink: 0, marginTop:-2}}>→</span> {b}
                   </li>
                 ))}
               </ul>
@@ -478,7 +478,7 @@ export default function Portfolio() {
                   "Achieved 80%+ unit test coverage while strengthening security through JWT validation and microservice-oriented architecture"
                 ].map((b, i) => (
                   <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
-                    <span style={{ color: V, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                    <span style={{ color: V, flexShrink: 0, marginTop: -2 }}>→</span> {b}
                   </li>
                 ))}
               </ul>
