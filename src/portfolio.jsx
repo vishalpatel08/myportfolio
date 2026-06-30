@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Github, Linkedin, Mail, ExternalLink, ChevronDown, Terminal, Code2, GitBranch, Database, Server, Cpu, Layers, Lock } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, ChevronDown, Terminal, Code2, GitBranch, Database, Server, Cpu, Layers, Lock, Import } from "lucide-react";
+import Navbar from './navbar.jsx'
+import AboutSection from './about.jsx'
 
 // ── Star field + Planets canvas ────────────────────────────────────────────────
 function SpaceCanvas() {
@@ -102,32 +104,6 @@ const CODE_SYMBOLS = [
   "gRPC", ":= make(chan)", "JWT", "O(1)", "Redis.SET",
 ];
 
-function FloatingSymbols() {
-  const [symbols, setSymbols] = useState([]);
-  useEffect(() => {
-    setSymbols(CODE_SYMBOLS.map((text, i) => ({
-      id: i, text,
-      x: Math.random() * 90 + 5,
-      duration: 18 + Math.random() * 20,
-      delay: Math.random() * 15,
-      size: 16 + Math.random() * 6.4,
-      opacity: 0.07 + Math.random() * 0.08,
-    })));
-  }, []);
-  return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", overflow: "hidden" }}>
-      {symbols.map(s => (
-        <div key={s.id} style={{
-          position: "absolute", left: `${s.x}%`, bottom: "-40px",
-          fontSize: s.size, color: "#00F5FF", fontFamily: "monospace",
-          opacity: s.opacity, whiteSpace: "nowrap",
-          animation: `floatUp ${s.duration}s linear ${s.delay}s infinite`,
-        }}>{s.text}</div>
-      ))}
-      <style>{`@keyframes floatUp { 0%{transform:translateY(0) rotate(-3deg);opacity:0} 10%{opacity:1} 90%{opacity:0.5} 100%{transform:translateY(-110vh) rotate(3deg);opacity:0} }`}</style>
-    </div>
-  );
-}
 
 // ── Typewriter ─────────────────────────────────────────────────────────────────
 function Typewriter({ text, speed = 60, onDone }) {
@@ -252,18 +228,11 @@ export default function Portfolio() {
       </div>
 
       <SpaceCanvas />
-      <FloatingSymbols />
 
       {/* NAV */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "0 64px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", background: navScrolled ? "rgba(5,8,16,0.88)" : "transparent", backdropFilter: navScrolled ? "blur(20px)" : "none", borderBottom: navScrolled ? "1px solid rgba(255,255,255,0.05)" : "none", transition: "all 0.3s ease" }}>
-        <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, color: C, fontSize: 20, letterSpacing: "0.04em" }}>VP</span>
-        <div style={{ display: "flex", gap: 28 }}>
-          {["about","skills","projects","experience","contact"].map(s => (
-            <button key={s} onClick={() => scrollTo(s)} style={{ background: "none", border: "none", color: "#64748B", cursor: "pointer", fontSize: 13, fontFamily: "'Inter',sans-serif", textTransform: "capitalize", letterSpacing: "0.06em", transition: "color 0.2s" }}
-              onMouseEnter={e => e.target.style.color = C} onMouseLeave={e => e.target.style.color = "#64748B"}>{s}</button>
-          ))}
-        </div>
-      </nav>
+      <Navbar C={C} 
+        navScrolled={navScrolled} 
+        scrollTo={scrollTo}/>
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 2, padding: "80px 24px 0" }}>
@@ -282,7 +251,7 @@ export default function Portfolio() {
             <button onClick={() => scrollTo("projects")} style={{ background: C, color: "#050810", border: "none", borderRadius: 8, padding: "13px 30px", fontWeight: 700, fontSize: 15, cursor: "pointer", fontFamily: "'Space Grotesk',sans-serif", letterSpacing: "0.02em" }}>
               View My Work
             </button>
-            <a href="https://tinyurl.com/2rwbr5tm" target="_blank" rel="noreferrer" style={{ background: "rgba(0,245,255,0.05)", color: C, border: `1px solid ${C}40`, borderRadius: 8, padding: "13px 30px", fontWeight: 600, fontSize: 15, textDecoration: "none", fontFamily: "'Space Grotesk',sans-serif" }}>
+            <a href="https://drive.google.com/file/d/1uvI7JUyjNPs2vpjerm8PW80Wmt0E4Vbi/view?usp=drive_link" target="_blank" rel="noreferrer" style={{ background: "rgba(0,245,255,0.05)", color: C, border: `1px solid ${C}40`, borderRadius: 8, padding: "13px 30px", fontWeight: 600, fontSize: 15, textDecoration: "none", fontFamily: "'Space Grotesk',sans-serif" }}>
               View Resume
             </a>
           </div>
@@ -306,54 +275,14 @@ export default function Portfolio() {
       </section>
 
       {/* ── ABOUT ────────────────────────────────────────────────────────────── */}
-      <section id="about" style={{ position: "relative", zIndex: 2, padding: "110px 24px", maxWidth: 1080, margin: "0 auto" }}>
-        <Reveal>
-          <p style={{ color: C, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10, fontWeight: 700 }}>About</p>
-          <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,4vw,40px)", fontWeight: 700, marginBottom: 48, color: "#F8FAFC" }}>The person behind the code.</h2>
-        </Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(220px,280px) minmax(280px,1fr) minmax(280px,360px)", gap: 32, alignItems: "start" }}>
-          <Reveal delay={60}>
-            <div style={{ position: "relative", borderRadius: 18, overflow: "hidden", border: `1px solid ${C}30`, boxShadow: `0 0 36px ${C}14` }}>
-              <img src={PROFILE_IMG} alt="Vishal Patel" style={{ width: "100%", display: "block", filter: "saturate(1.02) contrast(1.03)" }} />
-              <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 60%, rgba(5,8,16,0.55) 100%)`, pointerEvents: "none" }} />
-              <div style={{ position: "absolute", left: 14, bottom: 12, fontFamily: "'Space Grotesk',sans-serif", fontSize: 12, color: "#F8FAFC", letterSpacing: "0.04em" }}>
-                Vishal Patel
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <div>
-              <p style={{ fontSize: 15, lineHeight: 1.85, color: "#64748B", marginBottom: 20 }}>
-                I'm a backend engineer who grew up taking electronics apart to understand how things work. That habit never left, I just moved to distributed systems.
-              </p>
-              <p style={{ fontSize: 15, lineHeight: 1.85, color: "#64748B", marginBottom: 32 }}>
-                I care about building things that are <span style={{ color: "#CBD5E1", fontWeight: 500 }}>fast, reliable, and actually matter.</span> Not just code that runs systems that hold under pressure.
-              </p>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                {INTERESTS.map(({ icon, label }) => (
-                  <span key={label} style={{ display: "flex", alignItems: "center", gap: 7, background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.18)", borderRadius: 20, padding: "7px 16px", fontSize: 13, color: "#A78BFA", fontWeight: 500 }}>
-                    {icon} {label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <Glass style={{ padding: 28 }}>
-              {FACTS.map(({ icon, label, val }) => (
-                <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: 18, paddingBottom: 18, borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                  <span style={{ fontSize: 22, marginBottom: 6 }}>{icon}</span>
-                  <div style={{ fontSize: 10, color: "#334155", textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: 4, fontWeight: 600 }}>{label}</div>
-                  <div style={{ fontSize: 14, color: "#CBD5E1", fontWeight: 500 }}>{val}</div>
-                </div>
-              ))}
-            </Glass>
-          </Reveal>
-        </div>
-      </section>
-
+      <AboutSection 
+          C={C}
+          Reveal={Reveal}
+          Glass={Glass}
+          FACTS={FACTS}
+          INTERESTS={INTERESTS}
+          PROFILE_IMG={PROFILE_IMG}
+        />
       {/* ── SKILLS ───────────────────────────────────────────────────────────── */}
       <section id="skills" style={{ position: "relative", zIndex: 2, padding: "110px 24px", maxWidth: 1080, margin: "0 auto" }}>
         <Reveal>
@@ -384,7 +313,7 @@ export default function Portfolio() {
           <p style={{ color: C, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10, fontWeight: 700 }}>Projects</p>
           <h2 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(26px,4vw,40px)", fontWeight: 700, marginBottom: 48, color: "#F8FAFC" }}>Things I've built.</h2>
         </Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 28 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 480px), 1fr))", gap: 28 }}>
 
           {/* Rate Limiter */}
           <Reveal delay={100}>
@@ -433,9 +362,149 @@ export default function Portfolio() {
                   </li>
                 ))}
               </ul>
-              <a href="https://github.com/vishalpatel08/SSR-Schemes" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: V, fontSize: 13, fontWeight: 600, textDecoration: "none", border: `1px solid ${V}35`, borderRadius: 8, padding: "10px 18px", width: "fit-content", transition: "background 0.2s" }}
-                onMouseEnter={e => e.currentTarget.style.background = `${V}10`} onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
-                <ExternalLink size={15} /> Read More
+              <a href="https://github.com/vishalpatel08/SSR-Schemes" target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: C, fontSize: 13, fontWeight: 600, textDecoration: "none", border: `1px solid ${C}30`, borderRadius: 8, padding: "10px 18px", width: "fit-content", transition: "background 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.background = `${C}10`} onMouseLeave={e => e.currentTarget.style.background = "transparent"}>
+                <Github size={15} /> View on GitHub
+              </a>
+            </Glass>
+          </Reveal>
+
+                    {/* Expert Booking */}
+          <Reveal delay={300}>
+            <Glass hover cyan style={{ padding: 32, height: "100%", display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
+                {["Go", "React", "MongoDB", "WebSocket", "JWT", "OAuth"].map(t => <Tag key={t} label={t} color={C} />)}
+              </div>
+
+              <div style={{ marginBottom: 18 }}>
+                <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 32, fontWeight: 700, color: C, lineHeight: 1 }}>
+                  500+ Clients
+                </div>
+                <div style={{ fontSize: 12, color: "#334155", marginTop: 5, letterSpacing: "0.05em" }}>
+                  Real-time Chat · RBAC · REST API
+                </div>
+              </div>
+
+              <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 700, color: "#F8FAFC", marginBottom: 16 }}>
+                Expert Booking Platform
+              </h3>
+
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 28, flex: 1 }}>
+                {[
+                  "Built a low-latency WebSocket chat hub using Goroutines and Channels, supporting 500+ concurrent clients",
+                  "Integrated Google OAuth 2.0 with JWT-based RBAC, securing 12+ backend endpoints with role-based authorization",
+                  "Designed a modular REST API with Dependency Injection and reusable middleware for logging and authentication across 20+ endpoints"
+                ].map((b, i) => (
+                  <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
+                    <span style={{ color: C, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                  </li>
+                ))}
+              </ul>
+
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <a
+                  href="https://github.com/vishalpatel08/expert-booking"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    color: C,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    border: `1px solid ${C}30`,
+                    borderRadius: 8,
+                    padding: "10px 18px",
+                    transition: "background 0.2s"
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = `${C}10`}
+                  onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                >
+                  <Github size={15} /> Backend
+                </a>
+
+                <a
+                  href="https://github.com/vishalpatel08/eb-frontend"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    color: C,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    border: `1px solid ${C}30`,
+                    borderRadius: 8,
+                    padding: "10px 18px",
+                    transition: "background 0.2s"
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = `${C}10`}
+                  onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                >
+                  <Github size={15} /> Frontend
+                </a>
+              </div>
+            </Glass>
+          </Reveal>
+
+          {/* E-Commerce Backend */}
+          <Reveal delay={400}>
+            <Glass hover violet style={{ padding: 32, height: "100%", display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
+                {["Spring Boot", "MySQL", "JWT", "Microservices", "REST"].map(t => <Tag key={t} label={t} color={V} />)}
+              </div>
+
+              <div style={{ marginBottom: 18 }}>
+                <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 32, fontWeight: 700, color: V, lineHeight: 1 }}>
+                  80%+
+                </div>
+                <div style={{ fontSize: 12, color: "#334155", marginTop: 5, letterSpacing: "0.05em" }}>
+                  Test Coverage · JWT Security · SMTP
+                </div>
+              </div>
+
+              <h3 style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 700, color: "#F8FAFC", marginBottom: 16 }}>
+                E-Commerce Backend
+              </h3>
+
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10, marginBottom: 28, flex: 1 }}>
+                {[
+                  "Developed a secure Spring Boot backend with JWT authentication, role-based authorization, and protected REST APIs",
+                  "Implemented product, order, and user management with email verification via SMTP and secure endpoint configuration",
+                  "Achieved 80%+ unit test coverage while strengthening security through JWT validation and microservice-oriented architecture"
+                ].map((b, i) => (
+                  <li key={i} style={{ display: "flex", gap: 10, fontSize: 13, color: "#64748B", lineHeight: 1.65 }}>
+                    <span style={{ color: V, flexShrink: 0, marginTop: 2 }}>→</span> {b}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="https://github.com/vishalpatel08/E-commerce-Project"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  color: V,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  border: `1px solid ${V}35`,
+                  borderRadius: 8,
+                  padding: "10px 18px",
+                  width: "fit-content",
+                  transition: "background 0.2s"
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = `${V}10`}
+                onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+              >
+                <Github size={15} /> View on GitHub
               </a>
             </Glass>
           </Reveal>
