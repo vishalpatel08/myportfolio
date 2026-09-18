@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // Assuming C, navScrolled, and scrollTo are passed as props or defined above
-export default function Navbar({ C, navScrolled, scrollTo }) {
+export default function Navbar({ C, scrollTo }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,14 +33,14 @@ export default function Navbar({ C, navScrolled, scrollTo }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        background: navScrolled || (isMobile && isMenuOpen) ? "rgba(5,8,16,0.95)" : "transparent",
-        backdropFilter: navScrolled || (isMobile && isMenuOpen) ? "blur(20px)" : "none",
-        borderBottom: navScrolled || (isMobile && isMenuOpen) ? "1px solid rgba(255,255,255,0.05)" : "none",
+        background: "rgba(30,41,59,0.96)",
+        backdropFilter: "blur(14px)",
+        borderBottom: "1px solid #475569",
         transition: "all 0.3s ease",
       }}
     >
       {/* Logo */}
-      <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, color: C, fontSize: 20, letterSpacing: "0.04em" }}>
+      <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, color: "#F1F5F9", fontSize: 20, letterSpacing: "0.04em" }}>
         VP
       </span>
 
@@ -53,13 +53,13 @@ export default function Navbar({ C, navScrolled, scrollTo }) {
                 top: 60,
                 left: 0,
                 right: 0,
-                background: "rgba(5,8,16,0.98)",
+                background: "#1E293B",
                 backdropFilter: "blur(20px)",
                 display: isMenuOpen ? "flex" : "none",
                 flexDirection: "column",
                 gap: 0,
                 padding: "16px 0",
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                borderBottom: "1px solid #475569",
               }
             : {
                 display: "flex",
@@ -77,7 +77,7 @@ export default function Navbar({ C, navScrolled, scrollTo }) {
             style={{
               background: "none",
               border: "none",
-              color: "#64748B",
+              color: "#CBD5E1",
               cursor: "pointer",
               fontSize: 13,
               fontFamily: "'Inter',sans-serif",
@@ -90,7 +90,7 @@ export default function Navbar({ C, navScrolled, scrollTo }) {
               width: isMobile ? "100%" : "auto",
             }}
             onMouseEnter={(e) => (e.target.style.color = C)}
-            onMouseLeave={(e) => (e.target.style.color = "#64748B")}
+            onMouseLeave={(e) => (e.target.style.color = "#CBD5E1")}
           >
             {s}
           </button>
@@ -114,9 +114,9 @@ export default function Navbar({ C, navScrolled, scrollTo }) {
             padding: 0,
           }}
         >
-          <span style={{ width: "100%", height: 2, background: "#64748B", transition: "0.3s", transform: isMenuOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
-          <span style={{ width: "100%", height: 2, background: "#64748B", transition: "0.3s", opacity: isMenuOpen ? 0 : 1 }} />
-          <span style={{ width: "100%", height: 2, background: "#64748B", transition: "0.3s", transform: isMenuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+          <span style={{ width: "100%", height: 2, background: "#CBD5E1", transition: "0.3s", transform: isMenuOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+          <span style={{ width: "100%", height: 2, background: "#CBD5E1", transition: "0.3s", opacity: isMenuOpen ? 0 : 1 }} />
+          <span style={{ width: "100%", height: 2, background: "#CBD5E1", transition: "0.3s", transform: isMenuOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
         </button>
       )}
     </nav>
