@@ -120,7 +120,7 @@ export default function Portfolio() {
               <button onClick={() => scrollTo("projects")} style={{ background: V, color: "#F8FAFC", border: "none", borderRadius: 8, padding: "13px 24px", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "'Space Grotesk',sans-serif" }}>
                 Explore projects
               </button>
-              <a href="https://drive.google.com/file/d/13OAJBQyFOrd3OyWa74Y6CAn_dZ4Ng_-D/view?usp=sharing" target="_blank" rel="noreferrer" style={{ color: "#334155", borderBottom: "2px solid #334155", padding: "10px 2px", fontWeight: 700, fontSize: 14, textDecoration: "none", fontFamily: "'Space Grotesk',sans-serif" }}>
+              <a href="https://drive.google.com/file/d/1KWvPzcYs-i7rDK7ALO0EtuXMsgYDybtt/view?usp=sharing" target="_blank" rel="noreferrer" style={{ color: "#334155", borderBottom: "2px solid #334155", padding: "10px 2px", fontWeight: 700, fontSize: 14, textDecoration: "none", fontFamily: "'Space Grotesk',sans-serif" }}>
                 Resume ↗
               </a>
             </div>
